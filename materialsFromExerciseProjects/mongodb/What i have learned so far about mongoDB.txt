@@ -1,0 +1,29 @@
+First of all, the command "insert()", that has been shown in the video from the course, was wrong. Because, not all command can be used in the nodeJS.
+Instead of that command, i've found "insertOne()", that works both - in the command line, and in the nodeJS.
+
+Now i know how to install the mongoDB as a service on the Mac OS;
+how to run the service itself (the service should be running in a separate console window by the command "mangod"), and,
+in order, to work with the mongoDB in a command line, we are using the second console window.;
+know how to create db (use dbName), and after that, the db will be created, and the service will be automatically switched to that db.;
+In order to show all db's, that are exist, we using "show dbs" command.;
+Working withing selected db, we always should be working in a collection;
+The collection can be created separatelly or doring the first "insertOne" command, when it be automatically created.
+
+    db.products.insertOne({name:"pen", price:1.20})
+this command will insert a new item into a collection "products". The id will be generated automatically, and this is good choice, because it helps avoiding potential errors with a duplicated id's.
+
+In order to find something from a db, we can use db.collection.find, for example:
+    db.products.find({name:"pen"}); // will find all items with name field = "pen".
+
+we can make the view of the results more visible (if we are in a command line) adding the .pritty() in the end of a query.
+we can query with parameters such as $gt (>), $lt(<), $lte (<=), $gte (>=), e.t.c.
+
+In order to update the field name, which i was needing to do, we can use the next syntax:
+
+db.prod.updateMany({},{$rename:{proce:'price'}})
+    That command renames all wrong named "proce" fields in a collection into a correct "price".
+
+If we need to update a value , we can perform next command:
+    db.prod.updateOne({price: 1.2},{$set: {"price":1.5}}) // it updates value of the field "price" from 1.2 into 1.5.
+
+The "update" command might be not supported in the nodeJS, tat's why we should learn allready on a correct commands, that could be working in both - command line and nodeJS.
