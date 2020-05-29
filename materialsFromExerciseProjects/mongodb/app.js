@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 
 mongoose.connect("mongodb://localhost:27017/testDB", {useNewUrlParser:true, useUnifiedTopology: true});
 
+// -----------INSERTING SOME DATA INTO DB-----------------------------
+
 // Creating a new chema 
 
 const visitorSchema = new mongoose.Schema({
@@ -31,4 +33,22 @@ const visitor = new Visitor({
     }]
 });
 
-visitor.save(); //saving a "visitor" document in the "visitors" collection of a db "testDB".
+//-------------------  INSERTING DATA INTO A DB.------------
+
+//visitor.save(); //saving a "visitor" document in the "visitors" collection of a db "testDB".
+
+
+//******************************-------READING THE DATA USING MODELNAME.FIND()-----------****************************************** */
+
+Visitor.find((err, data)=>{ //by the model name, mongoose recognises a db's collection we are going to work with.
+if (err){
+    console.error(err);
+} else {
+    //--------------------CLOSING THE CONNECTION-------------------------
+    mongoose.connection.close(); //Now, the connection is closed.
+    
+    data.forEach((obj)=>{
+console.log(obj.taskList[0].tName); //showing value of a first tName field
+    }); // the "data" variable is our array of all db collection's documents (items).
+}
+});
