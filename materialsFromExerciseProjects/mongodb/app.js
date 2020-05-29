@@ -14,7 +14,7 @@ const visitorSchema = new mongoose.Schema({
 
 // Creating the mongoose model:
 
-const Visitor = mongoose.model("Visitors", visitorSchema);//the "Visitors" will be a name of the db's collection
+const Visitor = mongoose.model("visitors", visitorSchema);//the "Visitors" will be a name of the db's collection
 
 //Creating a new Document
 
@@ -31,4 +31,4 @@ const visitor = new Visitor({
     }]
 });
 
-visitor.save(); //saving a "visitor" document in the "Visitors" collection of a db "testDB".
+visitor.save(); //saving a "visitor" document in the "visitors" collection of a db "testDB".
