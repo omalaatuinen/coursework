@@ -6,7 +6,7 @@ how to run the service itself (the service should be running in a separate conso
 in order, to work with the mongoDB in a command line, we are using the second console window.;
 know how to create db (use dbName), and after that, the db will be created, and the service will be automatically switched to that db.;
 In order to show all db's, that are exist, we using "show dbs" command.;
-Working withing selected db, we always should be working in a collection;
+Working whithing selected db, we always should be working in a collection;
 The collection can be created separatelly or doring the first "insertOne" command, when it be automatically created.
 
     db.products.insertOne({name:"pen", price:1.20})
@@ -30,3 +30,5 @@ The "update" command might be not supported in the nodeJS, tat's why we should l
 
 And to delete from the db, we can use:
     db.prod.deleteOne({_id: ObjectId("5ecfb8f4e9d5b33b9029196e")}) // where "ObjectId("5ecfb8f4e9d5b33b9029196e")" is the id of item, that will be deleted.
+
+The CRUD operations are have learned now too, and they all are reflected in a app.js fully working code with a mongoose library.
