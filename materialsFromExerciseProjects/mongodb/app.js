@@ -37,18 +37,38 @@ const visitor = new Visitor({
 
 //visitor.save(); //saving a "visitor" document in the "visitors" collection of a db "testDB".
 
+//-----------------UPDATING DATA----------------------
+
+Visitor.updateOne({"_id":'5ed111de9e4efe3bb4cdeef6'},{taskList:[
+    { //updating a taskList array of a specific _id.
+        tName: "showNews",
+        newsOf: "news source type"
+    },{
+        tName:"redirect",
+        url: "https//google.com" //setting timeOut in seconds
+    }
+]},(err)=>{
+    if (err){
+        console.log(err);
+    } else {
+        console.log("updated");
+    }
+});
+
 
 //******************************-------READING THE DATA USING MODELNAME.FIND()-----------****************************************** */
+// "data" variable represents a document with a specific "_id" value.
 
-Visitor.find((err, data)=>{ //by the model name, mongoose recognises a db's collection we are going to work with.
+Visitor.find({"_id":'5ed111de9e4efe3bb4cdeef6'}, (err, data)=>{ //by the model name, mongoose recognises a db's collection we are going to work with.
+
 if (err){
-    console.error(err);
+    console.log(err);
 } else {
     //--------------------CLOSING THE CONNECTION-------------------------
     mongoose.connection.close(); //Now, the connection is closed.
     
-    data.forEach((obj)=>{
-console.log(obj.taskList[0].tName); //showing value of a first tName field
-    }); // the "data" variable is our array of all db collection's documents (items).
+    data[0].taskList.forEach((obj)=>{
+console.log(obj.tName); //showing value of a tName field for each of a taskList array.
+    }); 
 }
 });
