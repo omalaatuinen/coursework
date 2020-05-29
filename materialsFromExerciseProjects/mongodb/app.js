@@ -55,6 +55,17 @@ Visitor.updateOne({"_id":'5ed111de9e4efe3bb4cdeef6'},{taskList:[
     }
 });
 
+//------------------DELETING DOCUMENT FROM THE DB'S COLLECTION
+
+Visitor.deleteOne({'_id':'5ed114fa5513253c2dfece37'},(err)=>{ //Deleting the specific object by it's _id.
+if (err){
+    console.log(err);
+} else {
+    console.log("Deleted one.");
+}
+}); //
+
+
 
 //******************************-------READING THE DATA USING MODELNAME.FIND()-----------****************************************** */
 // "data" variable represents a document with a specific "_id" value.
