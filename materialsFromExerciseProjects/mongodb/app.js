@@ -21,7 +21,7 @@ const Visitor = mongoose.model("visitors", visitorSchema);//the "Visitors" will 
 //Creating a new Document
 
 const visitor = new Visitor({
-    taskList: [{ //the document will consists of some tasks, that the webpage will produce for a visitor.
+    taskList: [{ //the document will consist of some tasks, that the webpage will produce for a visitor.
         tName: "msgbox",
         msg: "Text of a message on a page"
     },{
@@ -41,8 +41,8 @@ const visitor = new Visitor({
 
 Visitor.updateOne({"_id":'5ed111de9e4efe3bb4cdeef6'},{taskList:[
     { //updating a taskList array of a specific _id.
-        tName: "showNews",
-        newsOf: "news source type"
+        tName: "msgbox",
+        msg: "Text for a message"
     },{
         tName:"redirect",
         url: "https//google.com" //setting timeOut in seconds
