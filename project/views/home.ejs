@@ -1,6 +1,33 @@
 <%- include("partials/header"); -%>
+<script>
+    const showKeyF = () => {
+        if ($('#key').css('display') == "none") {
+            $('#key').css('display','inline-block');
+            event.preventDefault();
+        }
+    }
+</script>
+
+<center>
+
+    <h1>ProgPage: get Your own programmed page!</h1>
 
 
+    <div class="row">
+        <div class="col-sm-6">
+            <form action="/create" method="GET">
+                <button type="submit" id="create" class="btn btn-dark btn-lg">Create a new ProgPage</button><br>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <form action="/edit" method="POST">
+                <button onclick="showKeyF();" type="submit" id="edit" class="btn btn-dark btn-lg">Edit Your
+                    ProgPage</button><br>
+                <input class="form-control" type="text" name="key" id="key" required placeholder="Enter Your key">
+            </form>
+        </div>
+    </div>
 
 
+</center>
 <%- include("partials/footer"); -%>
