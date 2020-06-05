@@ -12,12 +12,21 @@ label{
   color: gray;
 }
 
-input[type="text"]{
+input[type="text"].edit{
+  background-color: black;
+  display: inline-block;
+  width: 200px;
+  margin-top: 20px;
+}
+
+input[type="text"].hidden {
   background-color: black;
   display: inline-block;
   width: 194px;
-display: none;
+  display: none;
 }
+
+
 
 button{
   margin: 20px 20px;

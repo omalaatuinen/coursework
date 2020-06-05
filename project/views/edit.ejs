@@ -1,0 +1,27 @@
+<%- include("partials/header"); -%>
+<script>
+    setCookie('<%=key%>');
+</script>
+
+<div class="row">
+    <div class="col-lg-6">
+        <center>
+        <!-- <form action="/" method="GET">
+
+
+        </form> -->
+    </center>
+    </div>
+    <div class="col-lg-6">
+        <center>
+        <form action="/save" method="POST">
+            <input class="form-control edit" type="text" name="key" id="key" value="<%=key%>" required placeholder="Enter Your key"><br><br>
+            <button type="submit" id="save" class="btn btn-dark btn-lg">Save</button>
+
+        </form>
+    </center>
+    </div>
+</div>
+
+
+<%- include("partials/footer"); -%>
