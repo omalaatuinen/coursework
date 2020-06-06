@@ -8,7 +8,7 @@ mongoose.connect("mongodb://localhost:27017/testDB", {useNewUrlParser:true, useU
 
 // -----------INSERTING SOME DATA INTO DB-----------------------------
 
-// Creating a new chema 
+// Creating a new schema 
 
 const visitorSchema = new mongoose.Schema({
     taskList: Array

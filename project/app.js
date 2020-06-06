@@ -4,39 +4,52 @@ const express = require("express");
 const app = express();
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
+const db = require(__dirname + "/db.js");
 let key = "empty";
+let tList = []; //An array with a tasks for a page.
 
 
 //-----------routing and ejs rendering-------------
 
-app.get("/", (req, res)=>{
+app.get("/", (req, res) => {
     res.render("home", {});
 });
 
-app.get("/create", (req, res)=>{
-    // -------------creating a new item in a db------
-    
-    res.render("edit", {key:key});
+app.get("/create", (req, res) => {
+
+    res.render("edit", { key: key });
 });
 
-app.post("/create", (req, res)=>{
-    // -------------redirecting to "create" page------
-    res.redirect("/create");
+app.post("/create", async (req, res) => {
+    //---------Creating a new key for user. By this key, user'll be able to edit and run his page.
+    // the key will be an db item's _id.
+    //inserting a new empty item into db:
+    try {
+        key = await db.insert(tList);
+        key = key._id; //Now we've got an id of a new inserted item.
+        // -------------redirecting to "create" page------
+        res.redirect("/create");
+
+    } catch (err) {
+        console.log(err);
+    }
+
+
 });
 
 
-app.post("/edit", (req, res)=>{
+app.post("/edit", (req, res) => {
     // -------------redirecting to "edit" page------
     res.redirect("/edit/" + req.body.key);
 });
 
-app.get("/edit/:key", (req, res)=>{
+app.get("/edit/:key", (req, res) => {
     // -------------creating a new item in a db------
-    
-    res.render("edit", {key:req.params.key});
+
+    res.render("edit", { key: req.params.key });
 });
 
 
@@ -44,6 +57,6 @@ app.get("/edit/:key", (req, res)=>{
 
 
 
-app.listen(process.env.PORT || 3000, ()=>{
+app.listen(process.env.PORT || 3000, () => {
     console.log("Server started.");
 });
