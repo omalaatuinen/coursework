@@ -57,12 +57,49 @@ app.post("/edit", async (req, res) => {
 app.get("/edit/:key", (req, res) => {
     // -------------creating a new item in a db------
 
-    res.render("edit", { key: req.params.key, taskList:tList });
+    res.render("edit", { key: req.params.key, taskList: tList, saved: false });
+});
+
+app.post("/save", async (req, res) => {
+    //updating data(tasks) from front-end into db.
+    //creating object.
+    key = req.body.key;
+    let list = req.body.taskList;
+    list = list.split("\n");//now we have an array with rows of text
+    tList = [];
+    for (let i = 0; i < list.length; i++) {
+        const str = list[i].trim();
+        if (str == "redirect") {
+            let url = list[i + 1].trim();
+            taskObj = {
+                tName: 'redirect',
+                url: url
+            };
+            tList.push(taskObj);
+        }
+
+    }
+
+    //tList array is ready to update db.
+    try {
+        let result = "";
+        result = await db.update(tList, key);
+        console.log(result);
+        // tList = await db.find(key);
+        
+        res.redirect("/saved/" + key);
+    } catch (err) {
+        console.log(err);
+    }
+
 });
 
 
+app.get("/saved/:key", (req, res) => {
+    // -------------item has been updated------
 
-
+    res.render("edit", { key: req.params.key, taskList: tList, saved: true });
+});
 
 
 app.listen(process.env.PORT || 3000, () => {

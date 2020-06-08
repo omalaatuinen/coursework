@@ -1,28 +1,40 @@
 <%- include("partials/header"); -%>
 <script>
     setCookie('<%=key%>');
-
 </script>
 
+
+
+
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6 form-group">
         <center>
-        <!-- <form action="/" method="GET">
+            <!-- <form action="/" method="GET">
 
 
         </form> -->
-    </center>
+        </center>
     </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 form-group">
         <center>
-        <form action="/save" method="POST">
-            <input class="form-control edit" type="text" name="key" id="key" value="<%=key%>" required placeholder="Enter Your key"><br>
-            <button type="submit" id="save" class="btn btn-dark btn-lg">Save</button>
+            <form action="/save" method="POST">
+                <label for="key">Key:</label>
+                <input class="form-control edit" type="text" name="key" id="key" value="<%=key%>" required
+                    placeholder="Enter Your key"><br><br>
+                <label for="taskList">Selected tasks for Your progPage:</label>
+                <textarea class="form-control" id="taskList" name="taskList" rows="10" required
+                    placeholder="Select tasks above to add."></textarea>
+                <button type="submit" id="save" class="btn btn-dark btn-lg">Save</button>
 
-        </form>
-    </center>
+            </form>
+        </center>
     </div>
 </div>
 
+<% taskList.forEach(task => { %>
+    <script>
+        readTasks(<%-JSON.stringify(task)%>);
+    </script>
+    <% }) %>
 
 <%- include("partials/footer"); -%>

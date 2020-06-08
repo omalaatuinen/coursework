@@ -33,7 +33,6 @@ const visitor = new Visitor({
     }]
 });
 
-//-------------------  INSERTING DATA INTO A DB.------------
 
 //visitor.save(); //saving a "visitor" document in the "visitors" collection of a db "testDB".
 
