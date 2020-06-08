@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 
 app.get("/create", (req, res) => {
 
-    res.render("edit", { key: key });
+    res.render("edit", { key: key, taskList: tList });
 });
 
 app.post("/create", async (req, res) => {
@@ -41,15 +41,23 @@ app.post("/create", async (req, res) => {
 });
 
 
-app.post("/edit", (req, res) => {
-    // -------------redirecting to "edit" page------
-    res.redirect("/edit/" + req.body.key);
+app.post("/edit", async (req, res) => {
+    key = req.body.key;
+    //---requesting tasklist from db by it's id, which is variable "key". 
+    try {
+        tList = await db.find(key);
+        // -------------redirecting to "edit" page------
+        res.redirect("/edit/" + req.body.key);
+    } catch (err) {
+        console.log(err);
+    }
+
 });
 
 app.get("/edit/:key", (req, res) => {
     // -------------creating a new item in a db------
 
-    res.render("edit", { key: req.params.key });
+    res.render("edit", { key: req.params.key, taskList:tList });
 });
 
 

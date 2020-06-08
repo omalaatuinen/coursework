@@ -49,3 +49,41 @@ module.exports.delete = () => {
 
 
 }
+
+module.exports.find = async (key) => {
+    let res = "";
+    const mongoose = require("mongoose");
+    // connecting...
+
+    mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true, useUnifiedTopology: true });
+
+    // -----------CREATING A NEW SCHEMA AND MODEL-----------------------------
+
+    // Creating a new schema 
+
+    const userSchema = new mongoose.Schema({
+        taskList: Array
+    });
+
+    // Creating the mongoose model:
+
+    const User = mongoose.model("users", userSchema);//the "users" will be a name of the db's collection
+    try {
+        res = await User.findById(key, 'taskList').exec();
+        //--------------------CLOSING THE CONNECTION-------------------------
+        await mongoose.connection.close(); //Now, the connection is closed.
+        return res.taskList;
+    } catch (err) {
+        console.log(err);
+        mongoose.connection.close(); //Now, the connection is closed.  
+    }
+
+
+
+
+
+
+
+};
+
+
