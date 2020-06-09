@@ -2,8 +2,11 @@
 <script>
     setCookie('<%=key%>');
 </script>
-
-
+<center>
+<div class="saved">
+<h1>ProgPage is saved.</h1>
+</div>
+</center>
 <div class="row justify-content-sm-center">
     
     <div class="col col-auto">
@@ -56,6 +59,13 @@
 
 <script>
     readTasks(<%-JSON.stringify(taskList)%>);
+    if (<%=saved%>){
+        if (<%=saved%> == true) {
+            jQuery(".saved").slideDown(3000).slideUp(3000);
+
+            
+        }
+    }
 </script>
 
 <%- include("partials/footer"); -%>

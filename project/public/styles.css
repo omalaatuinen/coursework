@@ -8,7 +8,7 @@ h1{
   margin:  5%;
   color: #FEF2BF;
 }
-label{
+label, h2{
   color: gray;
 }
 
@@ -57,4 +57,11 @@ button{
   position: relative;
   top: 25px;
   right: 50px;
+}
+.saved{
+  display: none;
+}
+
+.msg{
+  display: none;
 }

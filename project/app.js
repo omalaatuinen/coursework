@@ -42,23 +42,27 @@ app.post("/create", async (req, res) => {
 });
 
 
-app.post("/edit", async (req, res) => {
+app.post("/edit", (req, res) => {
     key = req.body.key;
+    
+        // -------------redirecting to "edit/:key" page------
+        res.redirect("/edit/" + key);
+    
+
+});
+
+app.get("/edit/:key", async (req, res) => {
+    key = req.params.key;
     //---requesting tasklist from db by it's id, which is variable "key". 
     try {
         tList = await db.find(key);
-        // -------------redirecting to "edit" page------
-        res.redirect("/edit/" + req.body.key);
+        // -------------rendering the "edit" page------
+        res.render("edit", { key: key, taskList: tList, saved: false });
     } catch (err) {
         console.log(err);
     }
 
-});
-
-app.get("/edit/:key", (req, res) => {
-    // -------------creating a new item in a db------
-
-    res.render("edit", { key: req.params.key, taskList: tList, saved: false });
+    
 });
 
 app.post("/save", async (req, res) => {
@@ -72,7 +76,7 @@ app.post("/save", async (req, res) => {
     for (let i = 0; i < list.length; i++) {
         const str = list[i].trim();
 
-    //---Adding redirect
+        //---Adding redirect
 
         if (str == "redirect") {
             let url = list[i + 1].trim();
@@ -134,6 +138,28 @@ app.get("/saved/:key", (req, res) => {
 
     res.render("edit", { key: req.params.key, taskList: tList, saved: true });
 });
+
+app.post("/run", (req, res) => {
+    key = req.body.key;
+    res.redirect("/run/" + key);
+});
+
+app.get("/run/:key", async (req, res) => {
+    key = req.params.key;
+
+//---requesting tasklist from db by it's id, which is variable "key". 
+try {
+    tList = await db.find(key);
+    // -------------rendering the "run" page------
+    res.render("run", { key: key, taskList: tList });
+} catch (err) {
+    console.log(err);
+}
+
+
+    
+});
+
 
 
 app.listen(process.env.PORT || 3000, () => {

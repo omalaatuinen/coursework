@@ -14,12 +14,19 @@ const getCookie = () => {
 
 
 //----other functions------
-const showKeyF = () => {
-    if ($('#key').css('display') == "none") {
-        $('#key').css('display', 'inline-block');
-        event.preventDefault();
-
-        $('.hidden').val(getCookie());
+const showKeyF = (val) => {
+    if (val == "edit") {
+        $('#key').fadeIn('slow');
+        if ($('#key').val().length ===0) {
+            event.preventDefault();
+            $('#key').val(getCookie());
+        }
+    } else if (val == "run") {
+        $('#key2').fadeIn('slow');
+        if ($('#key2').val().length ===0) {
+            event.preventDefault();
+            $('#key2').val(getCookie());
+        }
     }
 }
 
@@ -49,24 +56,24 @@ const readTasks = (taskList) => {
 }
 
 const addTasks = () => {
-    
+
     const selected = $('#tasks').val();
     const list = document.querySelector('#taskList');
     let reqF = $('#reqF').val(); //for a field with some prompts for url, messages, etc.
-    
+
 
     // adding redirect task
 
     if (selected == "redirect") {
         if (reqF.length === 0) {
-            $('.reqF').show();
+            $('.reqF').slideDown('slow');
             $('#reqL').text('Enter a url');
             $('#reqF').focus();
             return;
         } else {
             let url = reqF;
             list.value += 'redirect' + '\n' + url + '\n';
-            $('.reqF').hide();
+            $('.reqF').slideUp('slow');
             $('#reqF').val("");
             $('#tasks').val("");
         }
@@ -77,50 +84,78 @@ const addTasks = () => {
 
     if (selected == "show message") {
         if (reqF.length === 0) {
-            $('.reqF').show();
+            $('.reqF').slideDown('slow');
             $('#reqL').text('Enter a message');
             $('#reqF').focus();
             return;
         } else {
             let msg = reqF;
             list.value += 'msg' + '\n' + msg + '\n';
-            $('.reqF').hide();
+            $('.reqF').slideUp('slow');
             $('#reqF').val("");
             $('#tasks').val("");
         }
 
     }
 
- //adding "delay" task.
+    //adding "delay" task.
 
- if (selected == "delay") {
-    if (reqF.length === 0) {
-        $('.reqF').show();
-        $('#reqL').text('Enter a delay in seconds');
-        $('#reqF').focus();
-        return;
-    } else {
-        let delay = reqF.replace(",", ".");
-        list.value += 'delay' + '\n' + delay + '\n';
-        $('.reqF').hide();
-        $('#reqF').val("");
-        $('#tasks').val("");
+    if (selected == "delay") {
+        if (reqF.length === 0) {
+            $('.reqF').slideDown('slow');
+            $('#reqL').text('Enter a delay in seconds');
+            $('#reqF').focus();
+            return;
+        } else {
+            let delay = reqF.replace(",", ".");
+            list.value += 'delay' + '\n' + delay + '\n';
+            $('.reqF').slideUp('slow');
+            $('#reqF').val("");
+            $('#tasks').val("");
+        }
+
     }
 
+
+
+
+
+
+
+
+
 }
 
-
-
-
-
-
-
-
-
-}
-
-const add = (key)=>{
-    if(key =="Enter"){
+const add = (key) => {
+    if (key == "Enter") {
         addTasks();
     }
+}
+
+
+
+// function for runing tasks on a "run" page.
+
+const runTasks = (taskList) => {
+    if (taskList.length > 0) { //if an array is not empty..
+        
+
+        taskList.forEach(task => {
+            if (task.tName == 'redirect') {
+                console.log('redirect to ' + task.url);
+            }
+
+            if (task.tName == 'msg') {
+                console.log('show message of: ' + task.msg);
+            }
+
+            if (task.tName == 'delay') {
+                console.log('delay of ' + task.delay + " seconds");
+            }
+
+
+        });
+
+
+    };
 }
