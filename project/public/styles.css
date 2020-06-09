@@ -16,7 +16,6 @@ input[type="text"].edit{
   background-color: black;
   display: inline-block;
   width: 200px;
-  margin-top: 20px;
 }
 
 input[type="text"].hidden {
@@ -29,9 +28,33 @@ input[type="text"].hidden {
 #taskList{
   background-color: black;
   width: 87%;
+  font-size: 1.5rem;
 }
 
 
 button{
   margin: 20px 20px;
+}
+
+#tasks{
+  background-color: black;
+  width: 87%;
+  font-size: 2rem;
+}
+
+#reqF{
+  margin-bottom: 15px;
+}
+.reqF{
+  display: none;
+}
+.addbtn{
+  border-radius: 50%;
+  position: relative;
+  top: -1px;
+}
+#reqL{
+  position: relative;
+  top: 25px;
+  right: 50px;
 }

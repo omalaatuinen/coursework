@@ -4,25 +4,48 @@
 </script>
 
 
+<div class="row justify-content-sm-center">
+    
+    <div class="col col-auto">
+        <center>
+            <br>
+        <label for="key">Your key is:</label><br>
+                <input class="form-control edit" type="text" form="form" name="key" id="key" value="<%=key%>" required
+                    placeholder="Enter Your key"><br><br>
+          </center>
+    </div>
 
+</div>
 
 <div class="row">
     <div class="col-lg-6 form-group">
+        
+            
+               <div class="reqF">
+                <center>
+                    <label id="reqL" for="reqF"></label><br>
+
+
+                    <input class="form-control edit" type="text" name="reqF" id="reqF" onkeydown="add(event.key);" required> <button onclick="addTasks();" class="btn btn-dark btn-lg addbtn">+</button>
+                   </center>
+               </div>
         <center>
-            <!-- <form action="/" method="GET">
+                <label for="tasks">To add task, click on it.</label>
+                <select onchange="addTasks();" class="form-control" multiple id="tasks">
+                    <option>redirect</option>
+                    <option>show message</option>
+                    <option>delay</option>
+                </select>
 
-
-        </form> -->
+            
         </center>
     </div>
     <div class="col-lg-6 form-group">
         <center>
-            <form action="/save" method="POST">
-                <label for="key">Key:</label>
-                <input class="form-control edit" type="text" name="key" id="key" value="<%=key%>" required
-                    placeholder="Enter Your key"><br><br>
+            <form action="/save" method="POST" id="form">
+                
                 <label for="taskList">Selected tasks for Your progPage:</label>
-                <textarea class="form-control" id="taskList" name="taskList" rows="10" required
+                <textarea class="form-control" id="taskList" name="taskList" rows="7" required
                     placeholder="Select tasks above to add."></textarea>
                 <button type="submit" id="save" class="btn btn-dark btn-lg">Save</button>
 
@@ -31,10 +54,8 @@
     </div>
 </div>
 
-<% taskList.forEach(task => { %>
-    <script>
-        readTasks(<%-JSON.stringify(task)%>);
-    </script>
-    <% }) %>
+<script>
+    readTasks(<%-JSON.stringify(taskList)%>);
+</script>
 
 <%- include("partials/footer"); -%>

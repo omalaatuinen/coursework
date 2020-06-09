@@ -27,6 +27,7 @@ app.post("/create", async (req, res) => {
     //---------Creating a new key for user. By this key, user'll be able to edit and run his page.
     // the key will be an db item's _id.
     //inserting a new empty item into db:
+    tList.length = 0;
     try {
         key = await db.insert(tList);
         key = key._id; //Now we've got an id of a new inserted item.
@@ -64,11 +65,15 @@ app.post("/save", async (req, res) => {
     //updating data(tasks) from front-end into db.
     //creating object.
     key = req.body.key;
+
     let list = req.body.taskList;
     list = list.split("\n");//now we have an array with rows of text
     tList = [];
     for (let i = 0; i < list.length; i++) {
         const str = list[i].trim();
+
+    //---Adding redirect
+
         if (str == "redirect") {
             let url = list[i + 1].trim();
             taskObj = {
@@ -78,15 +83,44 @@ app.post("/save", async (req, res) => {
             tList.push(taskObj);
         }
 
+        //Adding "show message"
+
+        if (str == "msg") {
+            let msg = list[i + 1].trim();
+            taskObj = {
+                tName: 'msg',
+                msg: msg
+            };
+            tList.push(taskObj);
+        }
+
+        //Adding delay
+
+        if (str == "delay") {
+            let delay = list[i + 1].trim();
+            taskObj = {
+                tName: 'delay',
+                delay: delay
+            };
+            tList.push(taskObj);
+        }
+
+
+
+
+
     }
 
     //tList array is ready to update db.
     try {
         let result = "";
         result = await db.update(tList, key);
-        console.log(result);
+        if (result.n < 1) {
+            console.log('Was not saved.');
+
+        }
         // tList = await db.find(key);
-        
+
         res.redirect("/saved/" + key);
     } catch (err) {
         console.log(err);
