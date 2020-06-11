@@ -1,18 +1,21 @@
 <%- include("partials/header"); -%>
+<!-- Div for "show message" command -->
+
+<div class="msg"></div>
 
 
-<div class="row justify-content-sm-center">
+<!-- <div class="row justify-content-sm-center">
     
     <div class="col col-auto msg">
        
     </div>
 
-</div>
+</div> -->
 
 
 <script>
-    runTasks(<%-JSON.stringify(taskList)%>);
-    
+    runTasks(<%- JSON.stringify(taskList) %>);
+
 </script>
 
 <%- include("partials/footer"); -%>

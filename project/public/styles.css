@@ -1,18 +1,19 @@
-body{
-    background-color: black;
+body {
+  background-color: black;
+}
 
-  }
-h1{
-    font-family: 'Press Start 2P', cursive;
+h1 {
+  font-family: 'Press Start 2P', cursive;
   font-size: 2.5rem;
-  margin:  5%;
+  margin: 5%;
   color: #FEF2BF;
 }
-label, h2{
+
+label, h2 {
   color: gray;
 }
 
-input[type="text"].edit{
+input[type="text"].edit {
   background-color: black;
   display: inline-block;
   width: 200px;
@@ -25,43 +26,65 @@ input[type="text"].hidden {
   display: none;
 }
 
-#taskList{
+#taskList {
   background-color: black;
   width: 87%;
   font-size: 1.5rem;
 }
 
-
-button{
+button {
   margin: 20px 20px;
 }
 
-#tasks{
+#tasks {
   background-color: black;
   width: 87%;
   font-size: 2rem;
 }
 
-#reqF{
+#reqF {
   margin-bottom: 15px;
 }
-.reqF{
+
+.reqF {
   display: none;
 }
-.addbtn{
+
+.addbtn {
   border-radius: 50%;
   position: relative;
   top: -1px;
 }
-#reqL{
+
+#reqL {
   position: relative;
   top: 25px;
   right: 50px;
 }
-.saved{
+
+.saved {
   display: none;
 }
 
-.msg{
+.msg {
+  left: 50%;
+  margin-left: -25%;
   display: none;
+  position: absolute;
+  width: 50%;
+  min-height: 5%;
+  z-index: 2000;
+  top: 40%;
+  text-align: center;
+  padding: 45px 18px 8px 18px;
+  border: #B0B5B7 solid 4px;
+  border-radius: 18px;
+  box-shadow: -16px 16px 16px 5px #1e1f20;
+  text-shadow: -3px 3px 1px #252629;
+  font-size: 1.5rem;
+  background: linear-gradient(45deg, #1a1a1b  0%, #505355 100%);
+}
+
+.msg p {
+  color: #B0B5B7;
 }

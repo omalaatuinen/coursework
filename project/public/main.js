@@ -14,16 +14,22 @@ const getCookie = () => {
 
 
 //----other functions------
+
+//---- delay function (Promise), which will work with async await
+const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms));
+
+
+//---function to show a "key" field before submit a main page forms.
 const showKeyF = (val) => {
     if (val == "edit") {
         $('#key').fadeIn('slow');
-        if ($('#key').val().length ===0) {
+        if ($('#key').val().length === 0) {
             event.preventDefault();
             $('#key').val(getCookie());
         }
     } else if (val == "run") {
         $('#key2').fadeIn('slow');
-        if ($('#key2').val().length ===0) {
+        if ($('#key2').val().length === 0) {
             event.preventDefault();
             $('#key2').val(getCookie());
         }
@@ -136,26 +142,54 @@ const add = (key) => {
 
 // function for runing tasks on a "run" page.
 
-const runTasks = (taskList) => {
-    if (taskList.length > 0) { //if an array is not empty..
-        
+const runTasks = async (taskList) => {
 
-        taskList.forEach(task => {
+    if (taskList.length > 0) { //if an array is not empty..
+
+
+        for(let i = 0; i < taskList.length; i++) {
+            let task = taskList[i];
             if (task.tName == 'redirect') {
-                console.log('redirect to ' + task.url);
+                window.location.href = task.url;
             }
 
+            //---"show message" task
+
             if (task.tName == 'msg') {
-                console.log('show message of: ' + task.msg);
+                try {
+                    $('.msg').html('<p>' + task.msg + '</p>');
+                    $('.msg').fadeIn(900);
+
+
+                    await delay(5000);
+                    $('.msg').fadeOut(700);
+                    await delay(720);
+                    $('.msg').html('');
+                } catch (err) {
+                    console.log(err);
+                }
             }
 
             if (task.tName == 'delay') {
-                console.log('delay of ' + task.delay + " seconds");
+                try{
+                await delay(task.delay * 1000);
+            } catch (err) {
+                console.log(err);
+            }
             }
 
 
-        });
+
+
+
+
+
+        };
+
 
 
     };
+
+
+
 }
