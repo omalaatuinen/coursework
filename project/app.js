@@ -76,7 +76,7 @@ app.post("/save", async (req, res) => {
     for (let i = 0; i < list.length; i++) {
         const str = list[i].trim();
 
-        //---Adding redirect
+        //---Adding "redirect" task to db.
 
         if (str == "redirect") {
             let url = list[i + 1].trim();
@@ -87,7 +87,19 @@ app.post("/save", async (req, res) => {
             tList.push(taskObj);
         }
 
-        //Adding "show message"
+
+        //---Adding "set background image" task to db.
+        if (str == "set background image") {
+            let url = list[i + 1].trim();
+            taskObj = {
+                tName: 'set background image',
+                url: url
+            };
+            tList.push(taskObj);
+
+        }
+
+        //Adding "show message" task to db
 
         if (str == "msg") {
             let msg = list[i + 1].trim();
@@ -98,7 +110,7 @@ app.post("/save", async (req, res) => {
             tList.push(taskObj);
         }
 
-        //Adding delay
+        //Adding "delay" task to db
 
         if (str == "delay") {
             let delay = list[i + 1].trim();

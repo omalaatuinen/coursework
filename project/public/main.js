@@ -54,12 +54,18 @@ const readTasks = (taskList) => {
                 list.value += 'delay\n' + task.delay + '\n';
             }
 
+            if (task.tName == 'set background image') {
+                list.value += 'set background image\n' + task.url + '\n';
+            }
+
 
         });
 
 
     };
 }
+
+//------Function for adding tasks to a tasklist.
 
 const addTasks = () => {
 
@@ -122,6 +128,27 @@ const addTasks = () => {
 
     }
 
+    // adding "set background image" task
+
+    if (selected == "set background image") {
+        if (reqF.length === 0) {
+            $('.reqF').slideDown('slow');
+            $('#reqL').text('Enter a url to an image');
+            $('#reqF').focus();
+            return;
+        } else {
+            let url = reqF;
+            list.value += 'set background image' + '\n' + url + '\n';
+            $('.reqF').slideUp('slow');
+            $('#reqF').val("");
+            $('#tasks').val("");
+        }
+
+    }
+
+
+
+
 
 
 
@@ -147,13 +174,16 @@ const runTasks = async (taskList) => {
     if (taskList.length > 0) { //if an array is not empty..
 
 
-        for(let i = 0; i < taskList.length; i++) {
+        for (let i = 0; i < taskList.length; i++) {
             let task = taskList[i];
+
+            //----run the "redirect" task
+
             if (task.tName == 'redirect') {
                 window.location.href = task.url;
             }
 
-            //---"show message" task
+            //---Run the "show message" task
 
             if (task.tName == 'msg') {
                 try {
@@ -169,14 +199,31 @@ const runTasks = async (taskList) => {
                     console.log(err);
                 }
             }
+            // ----run the "delay" task-----
 
             if (task.tName == 'delay') {
-                try{
-                await delay(task.delay * 1000);
-            } catch (err) {
-                console.log(err);
+                try {
+                    await delay(task.delay * 1000);
+                } catch (err) {
+                    console.log(err);
+                }
             }
+
+            //----run the "set background image" task
+
+            if (task.tName == 'set background image') {
+                $('body').css({'background-image': 'url(' + task.url + ')',
+                'background-repeat': 'no-repeat',
+                'background-attachment': 'fixed',
+                'background-position': 'center 56px',
+                'background-size': 'contain'
+            });
+               
             }
+
+
+
+
 
 
 

@@ -80,11 +80,11 @@ button {
   border: #B0B5B7 solid 4px;
   border-radius: 18px;
   box-shadow: -16px 16px 16px 5px #1e1f20;
-  text-shadow: -3px 3px 1px #252629;
+  text-shadow: -3px 3px 1px #46474d;
   font-size: 1.5rem;
-  background: linear-gradient(45deg, #1a1a1b  0%, #505355 100%);
+  background: linear-gradient(45deg, #535357  0%, #b2b8bd 100%);
 }
 
 .msg p {
-  color: #B0B5B7;
+  color: black;
 }
