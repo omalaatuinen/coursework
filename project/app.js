@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
+const https = require("https");
 const db = require(__dirname + "/db.js");
 let key = "empty";
 let tList = []; //An array with a tasks for a page.
@@ -44,10 +45,10 @@ app.post("/create", async (req, res) => {
 
 app.post("/edit", (req, res) => {
     key = req.body.key;
-    
-        // -------------redirecting to "edit/:key" page------
-        res.redirect("/edit/" + key);
-    
+
+    // -------------redirecting to "edit/:key" page------
+    res.redirect("/edit/" + key);
+
 
 });
 
@@ -62,7 +63,7 @@ app.get("/edit/:key", async (req, res) => {
         console.log(err);
     }
 
-    
+
 });
 
 app.post("/save", async (req, res) => {
@@ -89,6 +90,7 @@ app.post("/save", async (req, res) => {
 
 
         //---Adding "set background image" task to db.
+
         if (str == "set background image") {
             let url = list[i + 1].trim();
             taskObj = {
@@ -120,6 +122,22 @@ app.post("/save", async (req, res) => {
             };
             tList.push(taskObj);
         }
+
+        //---Adding "weather in certain city" task to db.
+
+        if (str == "weather in certain city") {
+            let city = list[i + 1].trim();
+            taskObj = {
+                tName: 'weather in certain city',
+                city: city
+            };
+            tList.push(taskObj);
+
+        }
+
+
+
+
 
 
 
@@ -159,17 +177,49 @@ app.post("/run", (req, res) => {
 app.get("/run/:key", async (req, res) => {
     key = req.params.key;
 
-//---requesting tasklist from db by it's id, which is variable "key". 
-try {
-    tList = await db.find(key);
-    // -------------rendering the "run" page------
-    res.render("run", { key: key, taskList: tList });
-} catch (err) {
-    console.log(err);
-}
+    //---requesting tasklist from db by it's id, which is variable "key". 
+    try {
+        tList = await db.find(key);
+        // -------------rendering the "run" page------
+        res.render("run", { key: key, taskList: tList });
+    } catch (err) {
+        console.log(err);
+    }
 
 
-    
+
+});
+
+
+//---REST API for a weather in some city----
+app.get("/weather/:city", function (req, res) {
+
+
+
+    const qCity = req.params.city;
+    const apiKey = "8867af5cb0cd4f02a8446d9936442a8c";
+    const url = "https://api.openweathermap.org/data/2.5/weather?q=" + qCity + "&appid=" + apiKey + "&units=metric";
+
+    https.get(url, function (response) {
+        response.on("data", function (data) {
+            let arr = JSON.parse(data);
+            let temp = arr['main']['temp'];
+            let feelsLike = arr['main']['feels_like'];
+            let tempDesc = arr['weather'][0]['description'];
+            let icon = "http://openweathermap.org/img/wn/" + arr['weather'][0]['icon'] + "@2x.png";
+
+            res.statusCode = 200;
+            res.setHeader('Content-type', 'application/json');
+            let result = {
+                result: 'Temperature in ' + arr['name'] + ' is ' + temp + ' degrees Celcius.' + '<br>It feels like: ' + feelsLike + '<br>description: ' + tempDesc + '.' + `<br><img src="${icon}">`
+            }
+            res.json(result);
+
+        });
+    });
+
+
+
 });
 
 

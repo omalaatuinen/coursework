@@ -58,6 +58,10 @@ const readTasks = (taskList) => {
                 list.value += 'set background image\n' + task.url + '\n';
             }
 
+            if (task.tName == 'weather in certain city') {
+                list.value += 'weather in certain city\n' + task.city + '\n';
+            }
+
 
         });
 
@@ -74,7 +78,7 @@ const addTasks = () => {
     let reqF = $('#reqF').val(); //for a field with some prompts for url, messages, etc.
 
 
-    // adding redirect task
+    // adding "redirect" task
 
     if (selected == "redirect") {
         if (reqF.length === 0) {
@@ -146,6 +150,25 @@ const addTasks = () => {
 
     }
 
+    // adding "weather in certain city" task
+
+    if (selected == "weather in certain city") {
+        if (reqF.length === 0) {
+            $('.reqF').slideDown('slow');
+            $('#reqL').text('Enter a name of the city');
+            $('#reqF').focus();
+            return;
+        } else {
+            let city = reqF;
+            list.value += 'weather in certain city' + '\n' + city + '\n';
+            $('.reqF').slideUp('slow');
+            $('#reqF').val("");
+            $('#tasks').val("");
+        }
+
+    }
+
+
 
 
 
@@ -212,14 +235,32 @@ const runTasks = async (taskList) => {
             //----run the "set background image" task
 
             if (task.tName == 'set background image') {
-                $('body').css({'background-image': 'url(' + task.url + ')',
-                'background-repeat': 'no-repeat',
-                'background-attachment': 'fixed',
-                'background-position': 'center 56px',
-                'background-size': 'contain'
-            });
-               
+                $('body').css({
+                    'background-image': 'url(' + task.url + ')',
+                    'background-repeat': 'no-repeat',
+                    'background-attachment': 'fixed',
+                    'background-position': 'center 56px',
+                    'background-size': 'contain'
+                });
+
             }
+
+            //----run the "weather in certain city" task
+
+            if (task.tName == 'weather in certain city') {
+
+                const endPoint = '/weather/' + task.city;
+                const response = await fetch(endPoint);
+                if (response.ok) {
+                    let jsonResponse = await response.json();
+
+
+                    console.log(jsonResponse.result);
+                }
+
+
+            }
+
 
 
 
