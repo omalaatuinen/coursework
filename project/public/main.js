@@ -254,8 +254,9 @@ const runTasks = async (taskList) => {
                 if (response.ok) {
                     let jsonResponse = await response.json();
 
+                    $('.row').append("<div class='col col-auto weather'><p>" + jsonResponse.result + "</p></div>");
+                    $('.weather').fadeIn('slow');
 
-                    console.log(jsonResponse.result);
                 }
 
 

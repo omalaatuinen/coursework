@@ -211,7 +211,7 @@ app.get("/weather/:city", function (req, res) {
             res.statusCode = 200;
             res.setHeader('Content-type', 'application/json');
             let result = {
-                result: 'Temperature in ' + arr['name'] + ' is ' + temp + ' degrees Celcius.' + '<br>It feels like: ' + feelsLike + '<br>description: ' + tempDesc + '.' + `<br><img src="${icon}">`
+                result: 'Temperature in ' + arr['name'] + ' is ' + temp + ' °C.' + '<br>It feels like: ' + feelsLike + '<br>description: ' + tempDesc + '.' + `<br><img src="${icon}">`
             }
             res.json(result);
 
