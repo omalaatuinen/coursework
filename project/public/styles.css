@@ -39,7 +39,7 @@ button {
 #tasks {
   background-color: black;
   width: 87%;
-  font-size: 2rem;
+  font-size: 1.7rem;
 }
 
 #reqF {
@@ -95,4 +95,13 @@ button {
   margin: 25px 9px 9px 9px;
   border-radius: 9%;
   box-shadow: -10px 10px 9px 5px rgba(83, 86, 89, 0.51);
+}
+
+.homebtn{
+  width: 250px;
+  border-radius: 14px;
+}
+
+.country{
+  display: none;
 }

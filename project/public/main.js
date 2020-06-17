@@ -62,6 +62,10 @@ const readTasks = (taskList) => {
                 list.value += 'weather in certain city\n' + task.city + '\n';
             }
 
+            if (task.tName == 'news in certain country') {
+                list.value += 'news in certain country\n' + task.country + '\n';
+            }
+
 
         });
 
@@ -167,6 +171,26 @@ const addTasks = () => {
         }
 
     }
+
+
+    // adding "news in certain country" task
+
+    if (selected == "news in certain country") {
+        if ($('#countryList').val().length === 0) {
+            $('.country').slideDown('slow');
+            $('#countryL').text('Select the country');
+            // $('#countryList').focus();
+            return;
+        } else {
+            let city = reqF;
+            list.value += 'weather in certain city' + '\n' + city + '\n';
+            $('.reqF').slideUp('slow');
+            $('#reqF').val("");
+            $('#tasks').val("");
+        }
+
+    }
+
 
 
 

@@ -135,6 +135,17 @@ app.post("/save", async (req, res) => {
 
         }
 
+        //---Adding "news in certain country" task to db.
+
+        if (str == "news in certain country") {
+            let country = list[i + 1].trim();
+            taskObj = {
+                tName: 'news in certain country',
+                country: country
+            };
+            tList.push(taskObj);
+
+        }
 
 
 
@@ -217,9 +228,36 @@ app.get("/weather/:city", function (req, res) {
 
         });
     });
+});
+
+
+//---REST API for a news headlines in some country----
+app.get("/news/:country", function (req, res) {
 
 
 
+    const country = req.params.country;
+    const apiKey = "99801a3e1430432db247981495d6ddab";
+    const url = "https://newsapi.org/v2/top-headlines?country=" + country + "&apiKey=" + apiKey;
+
+    https.get(url, function (response) {
+        response.on("data", function (data) {
+            let arr = JSON.parse(data);
+            let articles = []
+            arr.articles.forEach(article => {
+                articles.push({
+                    title:article.title,
+                    url:article.url
+                });                
+            });
+
+            res.statusCode = 200;
+            res.setHeader('Content-type', 'application/json');
+            
+            res.json(articles);
+
+        });
+    });
 });
 
 
