@@ -30,6 +30,7 @@ input[type="text"].hidden {
   background-color: black;
   width: 87%;
   font-size: 1.5rem;
+  color: rgb(185, 185, 185);
 }
 
 button {
@@ -40,6 +41,7 @@ button {
   background-color: black;
   width: 87%;
   font-size: 1.7rem;
+  color: rgb(185, 185, 185);
 }
 
 #reqF {
@@ -117,7 +119,12 @@ button {
   border-radius: 2%;
   box-shadow: -10px 10px 9px 5px rgba(83, 86, 89, 0.51);
   width: 90%;
-}
+} 
+
+
+
+
+
 .news:first-of-type{
   margin-top: 25px;
 }
@@ -128,4 +135,14 @@ button {
 }
 .newsC{
   display: none;
+}
+.news p{
+  margin: 0;
+}
+.separator{
+  display: block;
+  background-color: rgba(0, 0, 0, 0.0);
+  margin: 1px 3px 2px 3px;
+  width: 90%;
+  height: 25px;
 }

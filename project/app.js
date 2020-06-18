@@ -251,11 +251,21 @@ app.get("/news/:country", function (req, res) {
             let arr = JSON.parse(data);
             let articles = []
             arr.articles.forEach(article => {
-                articles.push({
-                    title: article.title,
-                    content: article.content,
-                    url: article.url
-                });
+                if (country == "ru") {
+                    articles.push({
+                        title: article.title,
+                        content: article.description,
+                        url: article.url,
+                        description: article.description
+                    });
+                } else {
+                    articles.push({
+                        title: article.title,
+                        content: article.content,
+                        url: article.url,
+                        description: article.description
+                    });
+                }
             });
 
             res.statusCode = 200;

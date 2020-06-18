@@ -218,11 +218,11 @@ const add = (key) => {
 const runTasks = async (taskList) => {
 
     if (taskList.length > 0) { //if an array is not empty..
-
+        let newsArticleIndex = 0;
 
         for (let i = 0; i < taskList.length; i++) {
             let task = taskList[i];
-
+            
             //----run the "redirect" task
 
             if (task.tName == 'redirect') {
@@ -291,25 +291,44 @@ const runTasks = async (taskList) => {
             if (task.tName == 'news in certain country') {
 
                 const endPoint = '/news/' + task.country;
-                const response = await fetch(endPoint);
-                if (response.ok) {
-                    let jsonResponse = await response.json();
-                    for (let i = 0; i < 10; i++) {
-                        const article = jsonResponse[i];
-                        let content = '<p>' + article.content + '</p>';
-                        console.log(content);
-                        $('.row').append("<div onclick='readMore(" + i + ");' class='col col-auto news news" + i + "'><p>" + article.title + "</p> <span class='readmore readmore" + i + "'>Read more...</span> <span class='newsC newsC" + i + "'>" + content + "<a href='" + article.url + "' target='_blank'>Go to source...</a></span> </div><br>");
-                        $('.news').fadeIn();
-                        try {
-                           await delay(200); 
-                        } catch (err) {
-                           console.log(err); 
+                try {
+                    const response = await fetch(endPoint);
+
+                    if (response.ok) {
+                        let jsonResponse = await response.json();
+                        for (let i = 0; i < jsonResponse.length; i++) {
+                            const article = jsonResponse[i];
+                            let content;
+                            if(!article.content){
+                                article.content = "For more information, go to the source link.";
+                            }
+                            if (article.description.length > article.content.length) {
+                                content = article.description;
+                            } else {
+                                content = article.content;
+                                if (content.length > 200){
+                                    content = content.slice(0, 200);
+                                }
+                                
+                            }
+                            content = '<p>' + content + '</p>';
+                            $('.row').append("<div onclick='readMore(" + newsArticleIndex + ");' class='col col-auto news news" + newsArticleIndex + "'><p>" + article.title + "<br> <span class='readmore readmore" + newsArticleIndex + "'>Read more...</span></p> <span class='newsC newsC" + newsArticleIndex + "'>" + content + "<a href='" + article.url + "' target='_blank'>Go to source...</a></span> </div><br>");
+                            $('.news').fadeIn();
+                            
+                            await delay(200);
+                            newsArticleIndex ++;
                         }
+    
+    
                     }
-                    
+                    $('.row').append("<div class='col col-auto separator'></div>");
 
+
+                } catch (err) {
+                    console.log(err);
                 }
-
+                
+                
 
             }
 
@@ -334,7 +353,7 @@ const runTasks = async (taskList) => {
 
 }
 
-const readMore = (i) =>{
+const readMore = (i) => {
     $('.readmore' + i).slideToggle();
     $('.newsC' + i).slideToggle();
 }
