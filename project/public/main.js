@@ -37,11 +37,15 @@ const showKeyF = (val) => {
 }
 
 // ---- Reading taskList array, and put it's content into a "selected tasks" textarea
+
 const readTasks = (taskList) => {
     if (taskList.length > 0) { //if an array is not empty..
         const list = document.querySelector('#taskList');
 
         taskList.forEach(task => {
+
+
+
             if (task.tName == 'redirect') {
                 list.value += 'redirect\n' + task.url + '\n';
             }
@@ -57,6 +61,11 @@ const readTasks = (taskList) => {
             if (task.tName == 'set background image') {
                 list.value += 'set background image\n' + task.url + '\n';
             }
+
+            if (task.tName == 'remove background image') {
+                list.value += 'remove background image\n';
+            }
+
 
             if (task.tName == 'weather in certain city') {
                 list.value += 'weather in certain city\n' + task.city + '\n';
@@ -154,6 +163,18 @@ const addTasks = () => {
 
     }
 
+
+    // adding "remove background image" task
+
+    if (selected == "remove background image") {
+
+
+        list.value += 'remove background image\n';
+        $('#tasks').val("");
+    }
+
+
+
     // adding "weather in certain city" task
 
     if (selected == "weather in certain city") {
@@ -222,7 +243,7 @@ const runTasks = async (taskList) => {
 
         for (let i = 0; i < taskList.length; i++) {
             let task = taskList[i];
-            
+
             //----run the "redirect" task
 
             if (task.tName == 'redirect') {
@@ -235,8 +256,6 @@ const runTasks = async (taskList) => {
                 try {
                     $('.msg').html('<p>' + task.msg + '</p>');
                     $('.msg').fadeIn(900);
-
-
                     await delay(5000);
                     $('.msg').fadeOut(700);
                     await delay(720);
@@ -267,6 +286,18 @@ const runTasks = async (taskList) => {
                 });
 
             }
+
+
+            //----run the "remove background image" task
+
+            if (task.tName == 'remove background image') {
+                $('body').css({
+                    'background-image': ''
+                });
+
+            }
+
+
 
             //----run the "weather in certain city" task
 
@@ -299,27 +330,27 @@ const runTasks = async (taskList) => {
                         for (let i = 0; i < jsonResponse.length; i++) {
                             const article = jsonResponse[i];
                             let content;
-                            if(!article.content){
+                            if (!article.content) {
                                 article.content = "For more information, go to the source link.";
                             }
                             if (article.description.length > article.content.length) {
                                 content = article.description;
                             } else {
                                 content = article.content;
-                                if (content.length > 200){
+                                if (content.length > 200) {
                                     content = content.slice(0, 200);
                                 }
-                                
+
                             }
                             content = '<p>' + content + '</p>';
                             $('.row').append("<div onclick='readMore(" + newsArticleIndex + ");' class='col col-auto news news" + newsArticleIndex + "'><p>" + article.title + "<br> <span class='readmore readmore" + newsArticleIndex + "'>Read more...</span></p> <span class='newsC newsC" + newsArticleIndex + "'>" + content + "<a href='" + article.url + "' target='_blank'>Go to source...</a></span> </div><br>");
                             $('.news').fadeIn();
-                            
+
                             await delay(200);
-                            newsArticleIndex ++;
+                            newsArticleIndex++;
                         }
-    
-    
+
+
                     }
                     $('.row').append("<div class='col col-auto separator'></div>");
 
@@ -327,8 +358,8 @@ const runTasks = async (taskList) => {
                 } catch (err) {
                     console.log(err);
                 }
-                
-                
+
+
 
             }
 

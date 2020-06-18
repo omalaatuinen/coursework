@@ -101,6 +101,21 @@ app.post("/save", async (req, res) => {
 
         }
 
+
+        //---Adding "remove background image" task to db.
+
+        if (str == "remove background image") {
+            
+            taskObj = {
+                tName: 'remove background image'
+            };
+            tList.push(taskObj);
+
+        }
+
+
+
+
         //Adding "show message" task to db
 
         if (str == "msg") {
