@@ -105,3 +105,27 @@ button {
 .country{
   display: none;
 }
+#countryList{
+  width: 25%;
+  text-align: center;
+}
+
+.news{
+  display: none;
+  background-color: rgba(255, 255, 255, 0.7);
+  margin: 1px 3px 2px 3px;
+  border-radius: 2%;
+  box-shadow: -10px 10px 9px 5px rgba(83, 86, 89, 0.51);
+  width: 90%;
+}
+.news:first-of-type{
+  margin-top: 25px;
+}
+
+.readmore{
+  color: blue;
+  cursor: grab;
+}
+.newsC{
+  display: none;
+}

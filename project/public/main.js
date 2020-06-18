@@ -178,14 +178,13 @@ const addTasks = () => {
     if (selected == "news in certain country") {
         if ($('#countryList').val().length === 0) {
             $('.country').slideDown('slow');
-            $('#countryL').text('Select the country');
-            // $('#countryList').focus();
+            $('#countryList').focus();
             return;
         } else {
-            let city = reqF;
-            list.value += 'weather in certain city' + '\n' + city + '\n';
-            $('.reqF').slideUp('slow');
-            $('#reqF').val("");
+            let country = $('#countryList').val();
+            list.value += 'news in certain country' + '\n' + country + '\n';
+            $('.country').slideUp('slow');
+            $('#countryList').val("");
             $('#tasks').val("");
         }
 
@@ -287,6 +286,34 @@ const runTasks = async (taskList) => {
             }
 
 
+            //----run the "news in certain country" task
+
+            if (task.tName == 'news in certain country') {
+
+                const endPoint = '/news/' + task.country;
+                const response = await fetch(endPoint);
+                if (response.ok) {
+                    let jsonResponse = await response.json();
+                    for (let i = 0; i < 10; i++) {
+                        const article = jsonResponse[i];
+                        let content = '<p>' + article.content + '</p>';
+                        console.log(content);
+                        $('.row').append("<div onclick='readMore(" + i + ");' class='col col-auto news news" + i + "'><p>" + article.title + "</p> <span class='readmore readmore" + i + "'>Read more...</span> <span class='newsC newsC" + i + "'>" + content + "<a href='" + article.url + "' target='_blank'>Go to source...</a></span> </div><br>");
+                        $('.news').fadeIn();
+                        try {
+                           await delay(200); 
+                        } catch (err) {
+                           console.log(err); 
+                        }
+                    }
+                    
+
+                }
+
+
+            }
+
+
 
 
 
@@ -306,3 +333,11 @@ const runTasks = async (taskList) => {
 
 
 }
+
+const readMore = (i) =>{
+    $('.readmore' + i).slideToggle();
+    $('.newsC' + i).slideToggle();
+}
+
+
+

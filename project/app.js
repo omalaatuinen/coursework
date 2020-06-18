@@ -203,6 +203,7 @@ app.get("/run/:key", async (req, res) => {
 
 
 //---REST API for a weather in some city----
+
 app.get("/weather/:city", function (req, res) {
 
 
@@ -232,28 +233,34 @@ app.get("/weather/:city", function (req, res) {
 
 
 //---REST API for a news headlines in some country----
+
 app.get("/news/:country", function (req, res) {
 
 
 
     const country = req.params.country;
     const apiKey = "99801a3e1430432db247981495d6ddab";
-    const url = "https://newsapi.org/v2/top-headlines?country=" + country + "&apiKey=" + apiKey;
-
+    const url = "https://newsapi.org/v2/top-headlines?country=" + country + "&pageSize=10&apiKey=" + apiKey;
+    let chunks = [];
     https.get(url, function (response) {
         response.on("data", function (data) {
+            chunks.push(data);
+        }).on('end', function () {
+            let data = Buffer.concat(chunks);
+
             let arr = JSON.parse(data);
             let articles = []
             arr.articles.forEach(article => {
                 articles.push({
-                    title:article.title,
-                    url:article.url
-                });                
+                    title: article.title,
+                    content: article.content,
+                    url: article.url
+                });
             });
 
             res.statusCode = 200;
             res.setHeader('Content-type', 'application/json');
-            
+
             res.json(articles);
 
         });
