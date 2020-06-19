@@ -94,16 +94,63 @@
 
                    </center>
                </div>
+
+               <div class="currencyAdd">
+                <center>
+                 <label id="currencyL" for="currencyList"></label><br>
+                 <select onchange="addTasks();" class="form-control" multiple id="currencyList" size='33'>
+                     <option>CAD</option>
+                     <option>HKD</option>
+                     <option>ISK</option>
+                     <option>PHP</option>
+                     <option>DKK</option>
+                     <option>HUF</option>
+                     <option>CZK</option>
+                     <option>GBP</option>
+                     <option>RON</option>
+                     <option>SEK</option>
+                     <option>IDR</option>
+                     <option>INR</option>
+                     <option>BRL</option>
+                     <option>RUB</option>
+                     <option>HRK</option>
+                     <option>JPY</option>
+                     <option>THB</option>
+                     <option>CHF</option>
+                     <option>EUR</option>
+                     <option>MYR</option>
+                     <option>BGN</option>
+                     <option>TRY</option>
+                     <option>CNY</option>
+                     <option>NOK</option>
+                     <option>NZD</option>
+                     <option>ZAR</option>
+                     <option>USD</option>
+                     <option>MXN</option>
+                     <option>SGD</option>
+                     <option>AUD</option>
+                     <option>ILS</option>
+                     <option>KRW</option>
+                     <option>PLN</option>
+                 </select>
+
+
+                </center>
+            </div>
+
+
         <center>
                 <label for="tasks">To add task, click on it.</label>
-                <select onchange="addTasks();" class="form-control" multiple id="tasks" size='6'>
-                    <option>redirect</option>
+                <select onchange="addTasks();" class="form-control" multiple id="tasks" size='9'>
+                    <option>show currency rates</option>
                     <option>show message</option>
-                    <option>delay</option>
-                    <option>set background image</option>
                     <option>weather in certain city</option>
                     <option>news in certain country</option>
+                    <option>set background image</option>
+                    <option>delay</option>
                     <option>remove background image</option>
+                    <option>clear the page</option>
+                    <option>redirect</option>
                 </select>
 
             
@@ -127,7 +174,7 @@
     readTasks(<%-JSON.stringify(taskList)%>);
     if (<%=saved%>){
         if (<%=saved%> == true) {
-            jQuery(".saved").slideDown(3000).slideUp(3000);
+            jQuery(".saved").slideDown(1500).slideUp(1500);
 
             
         }

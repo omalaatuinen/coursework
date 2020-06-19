@@ -105,9 +105,21 @@ app.post("/save", async (req, res) => {
         //---Adding "remove background image" task to db.
 
         if (str == "remove background image") {
-            
+
             taskObj = {
                 tName: 'remove background image'
+            };
+            tList.push(taskObj);
+
+        }
+
+
+        //---Adding "clear the page" task to db.
+
+        if (str == "clear the page") {
+
+            taskObj = {
+                tName: 'clear the page'
             };
             tList.push(taskObj);
 
@@ -161,6 +173,23 @@ app.post("/save", async (req, res) => {
             tList.push(taskObj);
 
         }
+
+
+        //---Adding "show currency rates" task to db.
+
+        if (str == "show currency rates") {
+            let fromCur = list[i + 1].trim();
+            let toCur = list[i + 2].trim();
+            taskObj = {
+                tName: 'show currency rates',
+                from: fromCur,
+                to: toCur
+            };
+            tList.push(taskObj);
+
+        }
+
+
 
 
 

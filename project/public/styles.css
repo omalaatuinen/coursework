@@ -112,6 +112,11 @@ button {
   text-align: center;
 }
 
+#currencyList{
+  width: 25%;
+  text-align: center;
+}
+
 .news{
   display: none;
   background-color: rgba(255, 255, 255, 0.7);
@@ -120,9 +125,6 @@ button {
   box-shadow: -10px 10px 9px 5px rgba(83, 86, 89, 0.51);
   width: 90%;
 } 
-
-
-
 
 
 .news:first-of-type{
@@ -145,4 +147,34 @@ button {
   margin: 1px 3px 2px 3px;
   width: 90%;
   height: 25px;
+}
+
+.currencyAdd{
+  display: none;
+}
+
+.currency{
+  display: none;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 25px 9px 9px 9px;
+  border-radius: 9%;
+  box-shadow: -10px 10px 9px 5px rgba(83, 86, 89, 0.51);
+  text-align: center;
+}
+
+
+
+.currency h3{
+  color: #1e1f20;
+  font-size: 2.5rem;
+  margin-top: 17px;
+  font-weight: bold;
+}
+
+p.currResult{
+  font-size: 4rem;
+}
+p .currTo{
+  font-size: 2.3rem;
+  font-weight: bold;
 }

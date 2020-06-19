@@ -67,6 +67,11 @@ const readTasks = (taskList) => {
             }
 
 
+            if (task.tName == 'clear the page') {
+                list.value += 'clear the page\n';
+            }
+
+
             if (task.tName == 'weather in certain city') {
                 list.value += 'weather in certain city\n' + task.city + '\n';
             }
@@ -75,6 +80,19 @@ const readTasks = (taskList) => {
                 list.value += 'news in certain country\n' + task.country + '\n';
             }
 
+            if (task.tName == 'show currency rates') {
+                list.value += 'show currency rates\n' + task.from + '\n' + task.to + '\n';
+            }
+
+
+
+
+
+
+
+
+
+
 
         });
 
@@ -82,7 +100,7 @@ const readTasks = (taskList) => {
     };
 }
 
-//------Function for adding tasks to a tasklist.
+//-------Function for adding tasks to a tasklist.
 
 const addTasks = () => {
 
@@ -167,9 +185,15 @@ const addTasks = () => {
     // adding "remove background image" task
 
     if (selected == "remove background image") {
-
-
         list.value += 'remove background image\n';
+        $('#tasks').val("");
+    }
+
+
+    // adding "clear the page" task
+
+    if (selected == "clear the page") {
+        list.value += 'clear the page\n';
         $('#tasks').val("");
     }
 
@@ -211,6 +235,35 @@ const addTasks = () => {
 
     }
 
+    // adding "show currency rates" task
+
+    if (selected == "show currency rates") {
+        if ($('#currencyL').html().length === 0) {
+            $('#currencyL').html('From');
+            $('.currencyAdd').slideDown('slow');
+            $('#currencyList').focus();
+            return;
+        } else if ($('#currencyL').html() == "From") {
+            let currFrom = $('#currencyList').val();
+            list.value += 'show currency rates' + '\n' + currFrom + '\n';
+            $('#currencyL').html('To');
+            $('.currencyAdd').slideUp('slow');
+            $('#currencyList').val("");
+            $('.currencyAdd').slideDown('slow');
+            $('#currencyList').focus();
+            return;
+        } else {
+            let currTo = $('#currencyList').val();
+            list.value += currTo + '\n';
+            $('.currencyAdd').slideUp('slow');
+            $('#currencyList').val("");
+            $('#currencyL').html('');
+            $('#tasks').val("");
+        }
+
+    }
+
+
 
 
 
@@ -234,7 +287,7 @@ const add = (key) => {
 
 
 
-// function for runing tasks on a "run" page.
+// -------------function for runing tasks on a "run" page.
 
 const runTasks = async (taskList) => {
 
@@ -298,6 +351,13 @@ const runTasks = async (taskList) => {
             }
 
 
+            //----run the "clear the page" task
+
+            if (task.tName == 'clear the page') {
+                $('.row').html('');
+            }
+
+
 
             //----run the "weather in certain city" task
 
@@ -310,11 +370,33 @@ const runTasks = async (taskList) => {
 
                     $('.row').append("<div class='col col-auto weather'><p>" + jsonResponse.result + "</p></div>");
                     $('.weather').fadeIn('slow');
+                    await delay(300);
 
                 }
 
 
             }
+
+
+
+            //----run the "show currency rates" task
+
+            if (task.tName == 'show currency rates') {
+
+                const endPoint = 'https://api.exchangeratesapi.io/latest?base=' + task.from;
+                const response = await fetch(endPoint);
+                if (response.ok) {
+                    let result = await response.json();
+                    let finalRate = result.rates[task.to];
+                    finalRate = finalRate.toFixed(4);
+                    $('.row').append("<div class='col col-auto currency'><h3>One " + task.from + " =</h3><p class='currResult'>" + finalRate + " <span class='currTo'>" + task.to + "</span></p></div>");
+                    $('.currency').fadeIn('slow');
+                    await delay(300);
+                }
+
+
+            }
+
 
 
             //----run the "news in certain country" task
