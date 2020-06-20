@@ -62,6 +62,11 @@ const readTasks = (taskList) => {
                 list.value += 'set background image\n' + task.url + '\n';
             }
 
+            if (task.tName == 'Astronomy Picture of the Day on background') {
+                list.value += 'Astronomy Picture of the Day on background\n' + task.option + '\n';
+            }
+
+
             if (task.tName == 'remove background image') {
                 list.value += 'remove background image\n';
             }
@@ -100,7 +105,7 @@ const readTasks = (taskList) => {
     };
 }
 
-//-------Function for adding tasks to a tasklist.
+//--------------Function for adding tasks to a tasklist.
 
 const addTasks = () => {
 
@@ -177,6 +182,21 @@ const addTasks = () => {
             $('.reqF').slideUp('slow');
             $('#reqF').val("");
             $('#tasks').val("");
+        }
+
+    }
+
+
+    // adding "Astronomy Picture of the Day on background" task
+
+    if (selected == "Astronomy Picture of the Day on background") {
+        if ($('#optionList').val().length === 0) {
+            optionList(['normal', 'HD'], 'Select image resolution');
+            return;
+        } else {
+            let option = $('#optionList').val();
+            list.value += 'Astronomy Picture of the Day on background' + '\n' + option + '\n';
+            optionList();
         }
 
     }
@@ -341,6 +361,34 @@ const runTasks = async (taskList) => {
             }
 
 
+
+            //----run the "Astronomy Picture of the Day on background" task
+
+            if (task.tName == 'Astronomy Picture of the Day on background') {
+
+                const endPoint = 'https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&hd=true';
+                const response = await fetch(endPoint);
+                if (response.ok) {
+                    let result = await response.json();
+                    let url = "";
+                    if (task.option == "HD"){
+                        url = result.hdurl;
+                    } else {
+                        url = result.url;
+                    }
+                    $('body').css({
+                        'background-image': 'url(' + url + ')',
+                        'background-repeat': 'no-repeat',
+                        'background-attachment': 'fixed',
+                        'background-position': 'center 56px',
+                        'background-size': 'contain'
+                    });
+                }
+
+            }
+
+
+
             //----run the "remove background image" task
 
             if (task.tName == 'remove background image') {
@@ -465,6 +513,7 @@ const runTasks = async (taskList) => {
 
 
 }
+// function for a news "read more"
 
 const readMore = (i) => {
     $('.readmore' + i).slideToggle();
@@ -472,4 +521,27 @@ const readMore = (i) => {
 }
 
 
+// Function to build an optionList multiselect
+
+const optionList = (arr, title) => {
+
+    if (title) {
+        $('#optionL').html(title);
+    } else {
+        $('#optionL').html('');
+    }
+    if (arr) {
+        arr.forEach(option => {
+            $('#optionList').append('<option>' + option + '</option>');
+        });
+        $('#optionList').prop('size', arr.length);
+        $('.optionDiv').slideDown('slow');
+        $('#optionList').focus();
+    } else {
+        $('#optionList').html('');
+        $('.optionDiv').slideUp('slow');
+        $('#tasks').val("");
+    }
+
+}
 

@@ -102,6 +102,20 @@ app.post("/save", async (req, res) => {
         }
 
 
+
+        //---Adding "Astronomy Picture of the Day on background" task to db.
+
+        if (str == "Astronomy Picture of the Day on background") {
+            let option = list[i + 1].trim();
+            taskObj = {
+                tName: 'Astronomy Picture of the Day on background',
+                option: option
+            };
+            tList.push(taskObj);
+
+        }
+
+
         //---Adding "remove background image" task to db.
 
         if (str == "remove background image") {
