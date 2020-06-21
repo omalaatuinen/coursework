@@ -242,7 +242,7 @@ const addTasks = () => {
 
     if (selected == "news in certain country") {
         if ($('#optionList').val().length === 0) {
-            let countryArr =["ae","ar","at","au","be","bg","br","ca","ch","cn","co","cu","cz","de","eg","fr","gb","gr","hk","hu","id","ie","il","in","it","jp","kr","lt","lv","ma","mx","my","ng","nl","no","nz","ph","pl","pt","ro","rs","ru","sa","se","sg","si","sk","th","tr","tw","ua","us","ve","za"];
+            let countryArr = ["ae", "ar", "at", "au", "be", "bg", "br", "ca", "ch", "cn", "co", "cu", "cz", "de", "eg", "fr", "gb", "gr", "hk", "hu", "id", "ie", "il", "in", "it", "jp", "kr", "lt", "lv", "ma", "mx", "my", "ng", "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru", "sa", "se", "sg", "si", "sk", "th", "tr", "tw", "ua", "us", "ve", "za"];
             optionList(countryArr, 'Select the country');
             return;
         } else {
@@ -256,27 +256,20 @@ const addTasks = () => {
     // adding "show currency rates" task
 
     if (selected == "show currency rates") {
-        if ($('#currencyL').html().length === 0) {
-            $('#currencyL').html('From');
-            $('.currencyAdd').slideDown('slow');
-            $('#currencyList').focus();
+        let arr = ["EUR", "USD", "RUB", "GBP", "CAD", "HKD", "ISK", "PHP", "DKK", "HUF", "CZK", "RON", "SEK", "IDR", "INR", "BRL", "HRK", "JPY", "THB", "CHF", "MYR", "BGN", "TRY", "CNY", "NOK", "NZD", "ZAR", "MXN", "SGD", "AUD", "ILS", "KRW", "PLN"];
+        if ($('#optionL').html().length === 0) {
+            optionList(arr, "From");
             return;
-        } else if ($('#currencyL').html() == "From") {
-            let currFrom = $('#currencyList').val();
+        } else if ($('#optionL').html() == "From") {
+            let currFrom = $('#optionList').val();
             list.value += 'show currency rates' + '\n' + currFrom + '\n';
-            $('#currencyL').html('To');
-            $('.currencyAdd').slideUp('slow');
-            $('#currencyList').val("");
-            $('.currencyAdd').slideDown('slow');
-            $('#currencyList').focus();
+            optionList(arr,"To");
             return;
-        } else {
-            let currTo = $('#currencyList').val();
+        } else if ($('#optionL').html() == "To") {
+            let currTo = $('#optionList').val();
             list.value += currTo + '\n';
-            $('.currencyAdd').slideUp('slow');
-            $('#currencyList').val("");
-            $('#currencyL').html('');
-            $('#tasks').val("");
+            optionList();
+            return;
         }
 
     }
@@ -369,7 +362,7 @@ const runTasks = async (taskList) => {
                 if (response.ok) {
                     let result = await response.json();
                     let url = "";
-                    if (task.option == "HD"){
+                    if (task.option == "HD") {
                         url = result.hdurl;
                     } else {
                         url = result.url;
@@ -529,12 +522,15 @@ const optionList = (arr, title) => {
         $('#optionL').html('');
     }
     if (arr) {
+        $('#optionList').html('');
+        $('.optionDiv').slideUp('slow');
         arr.forEach(option => {
             $('#optionList').append('<option>' + option + '</option>');
         });
         $('#optionList').prop('size', arr.length);
         $('.optionDiv').slideDown('slow');
         $('#optionList').focus();
+        return;
     } else {
         $('#optionList').html('');
         $('.optionDiv').slideUp('slow');

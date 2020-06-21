@@ -106,10 +106,6 @@ button {
 
 
 
-#currencyList{
-  width: 25%;
-  text-align: center;
-}
 
 .news{
   display: none;
@@ -143,9 +139,6 @@ button {
   height: 25px;
 }
 
-.currencyAdd{
-  display: none;
-}
 
 .currency{
   display: none;
@@ -158,16 +151,16 @@ button {
 
 .currency h3{
   color: #1e1f20;
-  font-size: 2.5rem;
-  margin-top: 17px;
+  font-size: 2.3rem;
+  margin-top: 16px;
   font-weight: bold;
 }
 
 p.currResult{
-  font-size: 4rem;
+  font-size: 3.8rem;
 }
 p .currTo{
-  font-size: 2.3rem;
+  font-size: 2.1rem;
   font-weight: bold;
 }
 
@@ -177,4 +170,5 @@ p .currTo{
 
 #optionList{
   width: auto;
+  text-align: center;
 }
