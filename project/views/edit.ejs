@@ -1,6 +1,8 @@
 <%- include("partials/header"); -%>
 <script>
+    jQuery(window).on('load', function () {
     setCookie('<%=key%>');
+    });
 </script>
 <center>
 <div class="saved">
@@ -38,8 +40,8 @@
             <div class="optionDiv">
                 <center>
                  <label id="optionL" for="optionList"></label><br>
-                 <select onchange="addTasks();" class="form-control" multiple id="optionList">
-                    
+                 <select onchange="addTasks();" class="form-control" id="optionList">
+                    <option></option>
                  </select>
 
 
@@ -50,7 +52,7 @@
 
         <center>
                 <label for="tasks">To add task, click on it.</label>
-                <select onchange="addTasks();" class="form-control" multiple id="tasks" size='10'>
+                <select onchange="addTasks();" class="form-control" id="tasks" size='10'>
                     <option>show currency rates</option>
                     <option>weather in certain city</option>
                     <option>news in certain country</option>

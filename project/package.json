@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Programmable web page, that can execute some commands already added by user. ",
   "main": "app.js",
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "body-parser": "^1.19.0",
     "ejs": "^3.1.3",

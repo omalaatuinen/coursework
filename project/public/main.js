@@ -22,16 +22,16 @@ const delay = ms => new Promise(resolve => setTimeout(() => resolve(), ms));
 //---function to show a "key" field before submit a main page forms.
 const showKeyF = (val) => {
     if (val == "edit") {
-        $('#key').fadeIn('slow');
-        if ($('#key').val().length === 0) {
+        jQuery('#key').fadeIn('slow');
+        if (jQuery('#key').val().length === 0) {
             event.preventDefault();
-            $('#key').val(getCookie());
+            jQuery('#key').val(getCookie());
         }
     } else if (val == "run") {
-        $('#key2').fadeIn('slow');
-        if ($('#key2').val().length === 0) {
+        jQuery('#key2').fadeIn('slow');
+        if (jQuery('#key2').val().length === 0) {
             event.preventDefault();
-            $('#key2').val(getCookie());
+            jQuery('#key2').val(getCookie());
         }
     }
 }
@@ -241,12 +241,12 @@ const addTasks = () => {
     // adding "news in certain country" task
 
     if (selected == "news in certain country") {
-        if ($('#optionList').val().length === 0) {
+        if (jQuery('#optionList').val().length === 0) {
             let countryArr = ["ae", "ar", "at", "au", "be", "bg", "br", "ca", "ch", "cn", "co", "cu", "cz", "de", "eg", "fr", "gb", "gr", "hk", "hu", "id", "ie", "il", "in", "it", "jp", "kr", "lt", "lv", "ma", "mx", "my", "ng", "nl", "no", "nz", "ph", "pl", "pt", "ro", "rs", "ru", "sa", "se", "sg", "si", "sk", "th", "tr", "tw", "ua", "us", "ve", "za"];
             optionList(countryArr, 'Select the country');
             return;
         } else {
-            let country = $('#optionList').val();
+            let country = jQuery('#optionList').val();
             list.value += 'news in certain country' + '\n' + country + '\n';
             optionList();
         }
@@ -318,12 +318,12 @@ const runTasks = async (taskList) => {
 
             if (task.tName == 'msg') {
                 try {
-                    $('.msg').html('<p>' + task.msg + '</p>');
-                    $('.msg').fadeIn(900);
+                    jQuery('.msg').html('<p>' + task.msg + '</p>');
+                    jQuery('.msg').fadeIn(900);
                     await delay(5000);
-                    $('.msg').fadeOut(700);
+                    jQuery('.msg').fadeOut(700);
                     await delay(720);
-                    $('.msg').html('');
+                    jQuery('.msg').html('');
                 } catch (err) {
                     console.log(err);
                 }
@@ -341,7 +341,7 @@ const runTasks = async (taskList) => {
             //----run the "set background image" task
 
             if (task.tName == 'set background image') {
-                $('body').css({
+                jQuery('body').css({
                     'background-image': 'url(' + task.url + ')',
                     'background-repeat': 'no-repeat',
                     'background-attachment': 'fixed',
@@ -367,7 +367,7 @@ const runTasks = async (taskList) => {
                     } else {
                         url = result.url;
                     }
-                    $('body').css({
+                    jQuery('body').css({
                         'background-image': 'url(' + url + ')',
                         'background-repeat': 'no-repeat',
                         'background-attachment': 'fixed',
@@ -383,7 +383,7 @@ const runTasks = async (taskList) => {
             //----run the "remove background image" task
 
             if (task.tName == 'remove background image') {
-                $('body').css({
+                jQuery('body').css({
                     'background-image': ''
                 });
 
@@ -393,7 +393,7 @@ const runTasks = async (taskList) => {
             //----run the "clear the page" task
 
             if (task.tName == 'clear the page') {
-                $('.row').html('');
+                jQuery('.row').html('');
             }
 
 
@@ -407,8 +407,8 @@ const runTasks = async (taskList) => {
                 if (response.ok) {
                     let jsonResponse = await response.json();
 
-                    $('.row').append("<div class='col col-auto weather'><p>" + jsonResponse.result + "</p></div>");
-                    $('.weather').fadeIn('slow');
+                    jQuery('.row').append("<div class='col col-auto weather'><p>" + jsonResponse.result + "</p></div>");
+                    jQuery('.weather').fadeIn('slow');
                     await delay(300);
 
                 }
@@ -428,8 +428,8 @@ const runTasks = async (taskList) => {
                     let result = await response.json();
                     let finalRate = result.rates[task.to];
                     finalRate = finalRate.toFixed(4);
-                    $('.row').append("<div class='col col-auto currency'><h3>One " + task.from + " =</h3><p class='currResult'>" + finalRate + " <span class='currTo'>" + task.to + "</span></p></div>");
-                    $('.currency').fadeIn('slow');
+                    jQuery('.row').append("<div class='col col-auto currency'><h3>One " + task.from + " =</h3><p class='currResult'>" + finalRate + " <span class='currTo'>" + task.to + "</span></p></div>");
+                    jQuery('.currency').fadeIn('slow');
                     await delay(300);
                 }
 
@@ -464,8 +464,8 @@ const runTasks = async (taskList) => {
 
                             }
                             content = '<p>' + content + '</p>';
-                            $('.row').append("<div onclick='readMore(" + newsArticleIndex + ");' class='col col-auto news news" + newsArticleIndex + "'><p>" + article.title + "<br> <span class='readmore readmore" + newsArticleIndex + "'>Read more...</span></p> <span class='newsC newsC" + newsArticleIndex + "'>" + content + "<a href='" + article.url + "' target='_blank'>Go to source...</a></span> </div><br>");
-                            $('.news').fadeIn();
+                            jQuery('.row').append("<div onclick='readMore(" + newsArticleIndex + ");' class='col col-auto news news" + newsArticleIndex + "'><p>" + article.title + "<br> <span class='readmore readmore" + newsArticleIndex + "'>Read more...</span></p> <span class='newsC newsC" + newsArticleIndex + "'>" + content + "<a href='" + article.url + "' target='_blank'>Go to source...</a></span> </div><br>");
+                            jQuery('.news').fadeIn();
 
                             await delay(200);
                             newsArticleIndex++;
@@ -473,7 +473,7 @@ const runTasks = async (taskList) => {
 
 
                     }
-                    $('.row').append("<div class='col col-auto separator'></div>");
+                    jQuery('.row').append("<div class='col col-auto separator'></div>");
 
 
                 } catch (err) {
@@ -524,17 +524,21 @@ const optionList = (arr, title) => {
     if (arr) {
         $('#optionList').html('');
         $('.optionDiv').slideUp('slow');
+        $('#optionList').append('<option></option>');
         arr.forEach(option => {
             $('#optionList').append('<option>' + option + '</option>');
         });
         $('#optionList').prop('size', arr.length);
         $('.optionDiv').slideDown('slow');
+        $('#optionList').val("");
         $('#optionList').focus();
         return;
     } else {
         $('#optionList').html('');
         $('.optionDiv').slideUp('slow');
         $('#tasks').val("");
+        $('#optionList').append('<option></option>');
+        $('#optionList').val('');
     }
 
 }

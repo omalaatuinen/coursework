@@ -12,8 +12,9 @@
 
 
 <script>
+    jQuery(window).on('load', function () {
     runTasks(<%- JSON.stringify(taskList) %>);
-
+    });
 </script>
 
 <%- include("partials/footer"); -%>

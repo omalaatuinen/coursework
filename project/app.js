@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 
 app.get("/create", (req, res) => {
 
-    res.render("edit", { key: key, taskList: tList });
+    res.render("edit", { key: key, taskList: tList, saved:false });
 });
 
 app.post("/create", async (req, res) => {

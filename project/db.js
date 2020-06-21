@@ -16,7 +16,8 @@ module.exports.insert = async (taskList) => {
     let res = "";
 
     // connecting...
-    mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true, useUnifiedTopology: true });
+    // mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect("mongodb://heroku_pww91f2p:dnqv89gkvj3elft9pdd9agljkg@ds133192.mlab.com:33192/heroku_pww91f2p", { useNewUrlParser: true, useUnifiedTopology: true });
 
     
     //Creating a new Document
@@ -41,7 +42,8 @@ module.exports.update = async (taskList, key) => {
     let result = "";
 
     // connecting...
-    mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true, useUnifiedTopology: true });
+    // mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect("mongodb://heroku_pww91f2p:dnqv89gkvj3elft9pdd9agljkg@ds133192.mlab.com:33192/heroku_pww91f2p", { useNewUrlParser: true, useUnifiedTopology: true });
 
     
     //Updating a Document
@@ -84,7 +86,8 @@ module.exports.find = async (key) => {
 
     // connecting...
 
-    mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true, useUnifiedTopology: true });
+    // mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true, useUnifiedTopology: true });
+    mongoose.connect("mongodb://heroku_pww91f2p:dnqv89gkvj3elft9pdd9agljkg@ds133192.mlab.com:33192/heroku_pww91f2p", { useNewUrlParser: true, useUnifiedTopology: true });
 
 
     try {
