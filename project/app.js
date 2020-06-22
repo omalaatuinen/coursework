@@ -137,6 +137,18 @@ app.post("/save", async (req, res) => {
         }
 
 
+        //---Adding "wait for click" task to db.
+
+        if (str == "wait for click") {
+
+            taskObj = {
+                tName: 'wait for click'
+            };
+            tList.push(taskObj);
+
+        }
+
+
         //---Adding "clear the page" task to db.
 
         if (str == "clear the page") {

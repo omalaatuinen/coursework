@@ -72,6 +72,12 @@ const readTasks = (taskList) => {
             }
 
 
+            if (task.tName == 'wait for click') {
+                list.value += 'wait for click\n';
+            }
+
+
+
             if (task.tName == 'clear the page') {
                 list.value += 'clear the page\n';
             }
@@ -95,7 +101,7 @@ const readTasks = (taskList) => {
 
 
 
-            
+
 
 
 
@@ -219,6 +225,14 @@ const addTasks = () => {
     }
 
 
+    // adding "wait for click" task
+
+    if (selected == "wait for click") {
+        list.value += 'wait for click\n';
+        $('#tasks').val("");
+    }
+
+
 
     // adding "weather in certain city" task
 
@@ -264,7 +278,7 @@ const addTasks = () => {
         } else if ($('#optionL').html() == "From") {
             let currFrom = $('#optionList').val();
             list.value += 'show currency rates' + '\n' + currFrom + '\n';
-            optionList(arr,"To");
+            optionList(arr, "To");
             return;
         } else if ($('#optionL').html() == "To") {
             let currTo = $('#optionList').val();
@@ -397,6 +411,18 @@ const runTasks = async (taskList) => {
                 jQuery('.row').html('');
             }
 
+
+            //----run the "wait for click" task
+
+            if (task.tName == 'wait for click') {
+                let isClicked = false;
+                jQuery(document).click(function (e) { 
+                    isClicked = true;
+                });
+                do {
+                        await delay(250);
+                } while (!isClicked);
+            }
 
 
             //----run the "weather in certain city" task
