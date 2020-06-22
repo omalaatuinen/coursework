@@ -19,14 +19,23 @@ app.get("/", (req, res) => {
     res.render("home", {});
 });
 
+app.get("/about", (req, res) => {
+    res.render("about", {});
+});
+
+app.get("/contacts", (req, res) => {
+    res.render("contacts", {});
+});
+
 app.get("/create", (req, res) => {
+    
 
     res.render("edit", { key: key, taskList: tList, saved:false });
 });
 
 app.post("/create", async (req, res) => {
     //---------Creating a new key for user. By this key, user'll be able to edit and run his page.
-    // the key will be an db item's _id.
+    // the key will be a db item's _id.
     //inserting a new empty item into db:
     tList.length = 0;
     try {

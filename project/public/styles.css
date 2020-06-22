@@ -191,3 +191,27 @@ p .currTo{
   width: auto;
   text-align: center;
 }
+
+.about{
+  margin:5px 25px 10px 25px;
+}
+
+.about p{
+  color: rgb(185, 185, 185);
+}
+
+.about h2{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.7rem;
+  margin:7% 5% 0 5%;
+  padding-bottom: 7px;
+  color: #FEF2BF;
+}
+
+.about h3{
+  font-family: 'Press Start 2P', cursive;
+  font-size: 1.1rem;
+  margin:7% 5% 0 5%;
+  padding-bottom: 7px;
+  color: #FEF2BF;
+}
