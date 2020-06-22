@@ -198,6 +198,8 @@ p .currTo{
 
 .about p{
   color: rgb(185, 185, 185);
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .about h2{
@@ -214,4 +216,8 @@ p .currTo{
   margin:7% 5% 0 5%;
   padding-bottom: 7px;
   color: #FEF2BF;
+}
+
+.about a{
+display: inline-block;
 }
