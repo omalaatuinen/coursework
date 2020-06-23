@@ -51,7 +51,7 @@ const readTasks = (taskList) => {
             }
 
             if (task.tName == 'msg') {
-                list.value += 'msg\n' + task.msg + '\n';
+                list.value += 'msg\n' + task.msg + '\n' + task.dur + '\n';
             }
 
             if (task.tName == 'delay') {
@@ -135,6 +135,7 @@ const addTasks = () => {
             $('.reqF').slideUp('slow');
             $('#reqF').val("");
             $('#tasks').val("");
+            return;
         }
 
     }
@@ -142,17 +143,27 @@ const addTasks = () => {
     //adding "show message" task.
 
     if (selected == "show message") {
-        if (reqF.length === 0) {
+        if (reqF.length === 0 && $('#optionList').val().length === 0) {
             $('.reqF').slideDown('slow');
             $('#reqL').text('Enter a message');
             $('#reqF').focus();
             return;
-        } else {
+        } else if (reqF.length > 0) {
             let msg = reqF;
             list.value += 'msg' + '\n' + msg + '\n';
             $('.reqF').slideUp('slow');
             $('#reqF').val("");
+            optionList(['1', '2', '3', '5', '10', '20', '30', '60', '120', 'wait for click'], "Message's duration in seconds");
+            return;
+        } else if ($('#optionList').val().length > 0) {
+            if ($('#optionList').val() == "wait for click") {
+                list.value += '0' + '\n';
+            } else {
+                list.value += $('#optionList').val() + '\n';
+            }
+            optionList();
             $('#tasks').val("");
+            return;
         }
 
     }
@@ -171,6 +182,7 @@ const addTasks = () => {
             $('.reqF').slideUp('slow');
             $('#reqF').val("");
             $('#tasks').val("");
+            return;
         }
 
     }
@@ -189,6 +201,7 @@ const addTasks = () => {
             $('.reqF').slideUp('slow');
             $('#reqF').val("");
             $('#tasks').val("");
+            return;
         }
 
     }
@@ -204,6 +217,7 @@ const addTasks = () => {
             let option = $('#optionList').val();
             list.value += 'Astronomy Picture of the Day on background' + '\n' + option + '\n';
             optionList();
+            return;
         }
 
     }
@@ -214,6 +228,7 @@ const addTasks = () => {
     if (selected == "remove background image") {
         list.value += 'remove background image\n';
         $('#tasks').val("");
+        return;
     }
 
 
@@ -222,6 +237,7 @@ const addTasks = () => {
     if (selected == "clear the page") {
         list.value += 'clear the page\n';
         $('#tasks').val("");
+        return;
     }
 
 
@@ -230,6 +246,7 @@ const addTasks = () => {
     if (selected == "wait for click") {
         list.value += 'wait for click\n';
         $('#tasks').val("");
+        return;
     }
 
 
@@ -248,6 +265,7 @@ const addTasks = () => {
             $('.reqF').slideUp('slow');
             $('#reqF').val("");
             $('#tasks').val("");
+            return;
         }
 
     }
@@ -264,6 +282,7 @@ const addTasks = () => {
             let country = jQuery('#optionList').val();
             list.value += 'news in certain country' + '\n' + country + '\n';
             optionList();
+            return;
         }
 
     }
@@ -305,11 +324,7 @@ const addTasks = () => {
 
 }
 
-const add = (key) => {
-    if (key == "Enter") {
-        addTasks();
-    }
-}
+
 
 
 
@@ -335,10 +350,21 @@ const runTasks = async (taskList) => {
                 try {
                     jQuery('.msg').html('<p>' + task.msg + '</p>');
                     jQuery('.msg').fadeIn(900);
-                    await delay(5000);
-                    jQuery('.msg').fadeOut(700);
-                    await delay(720);
+                    await delay(task.dur * 1000);
+                    if (task.dur == 0) {
+                     let isClicked = false;
+                        jQuery(document).click(function (e) {
+                            isClicked = true;
+                        });
+                        do {
+                            await delay(250);
+                        } while (!isClicked);
+                    }
+
+                    jQuery('.msg').fadeOut(400);
+                    await delay(420);
                     jQuery('.msg').html('');
+
                 } catch (err) {
                     console.log(err);
                 }
@@ -416,11 +442,11 @@ const runTasks = async (taskList) => {
 
             if (task.tName == 'wait for click') {
                 let isClicked = false;
-                jQuery(document).click(function (e) { 
+                jQuery(document).click(function (e) {
                     isClicked = true;
                 });
                 do {
-                        await delay(250);
+                    await delay(250);
                 } while (!isClicked);
             }
 
@@ -555,7 +581,7 @@ const optionList = (arr, title) => {
         arr.forEach(option => {
             $('#optionList').append('<option>' + option + '</option>');
         });
-        $('#optionList').prop('size', arr.length);
+        $('#optionList').prop('size', arr.length + 1);
         $('.optionDiv').slideDown('slow');
         $('#optionList').val("");
         $('#optionList').focus();
@@ -568,5 +594,11 @@ const optionList = (arr, title) => {
         $('#optionList').val('');
     }
 
+}
+
+const add = (key) => {
+    if (key == "Enter") {
+        addTasks();
+    }
 }
 

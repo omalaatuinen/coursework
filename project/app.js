@@ -169,7 +169,8 @@ app.post("/save", async (req, res) => {
             let msg = list[i + 1].trim();
             taskObj = {
                 tName: 'msg',
-                msg: msg
+                msg: msg,
+                dur: list[i + 2].trim()
             };
             tList.push(taskObj);
         }
