@@ -107,7 +107,6 @@ app.post("/save", async (req, res) => {
                 url: url
             };
             tList.push(taskObj);
-
         }
 
 
@@ -121,7 +120,6 @@ app.post("/save", async (req, res) => {
                 option: option
             };
             tList.push(taskObj);
-
         }
 
 
@@ -133,7 +131,6 @@ app.post("/save", async (req, res) => {
                 tName: 'remove background image'
             };
             tList.push(taskObj);
-
         }
 
 
@@ -145,7 +142,6 @@ app.post("/save", async (req, res) => {
                 tName: 'wait for click'
             };
             tList.push(taskObj);
-
         }
 
 
@@ -157,7 +153,6 @@ app.post("/save", async (req, res) => {
                 tName: 'clear the page'
             };
             tList.push(taskObj);
-
         }
 
 
@@ -207,7 +202,6 @@ app.post("/save", async (req, res) => {
                 country: country
             };
             tList.push(taskObj);
-
         }
 
 
@@ -222,7 +216,6 @@ app.post("/save", async (req, res) => {
                 to: toCur
             };
             tList.push(taskObj);
-
         }
 
 
@@ -241,10 +234,8 @@ app.post("/save", async (req, res) => {
         let result = "";
         result = await db.update(tList, key);
         if (result.n < 1) {
-            console.log('Was not saved.');
-
+            console.log('Has not been saved.');
         }
-        // tList = await db.find(key);
 
         res.redirect("/saved/" + key);
     } catch (err) {
