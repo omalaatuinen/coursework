@@ -352,7 +352,7 @@ const runTasks = async (taskList) => {
                     jQuery('.msg').fadeIn(900);
                     await delay(task.dur * 1000);
                     if (task.dur == 0) {
-                     let isClicked = false;
+                        let isClicked = false;
                         jQuery(document).click(function (e) {
                             isClicked = true;
                         });

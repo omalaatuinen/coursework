@@ -82,8 +82,6 @@ module.exports.delete = () => {
 module.exports.find = async (key) => {
     let res = "";
 
-
-
     // connecting...
 
     // mongoose.connect("mongodb://localhost:27017/usersDB", { useNewUrlParser: true, useUnifiedTopology: true });
