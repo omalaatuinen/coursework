@@ -1,4 +1,9 @@
 <%- include("partials/header"); -%>
+<script>
+    jQuery(window).on('load', function () {
+    setCookie('<%=key%>');
+    });
+</script>
 <!-- Div for "show message" command -->
 
 <div class="msg"></div>
