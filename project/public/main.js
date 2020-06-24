@@ -353,7 +353,7 @@ const runTasks = async (taskList) => {
                     await delay(task.dur * 1000);
                     if (task.dur == 0) {
                         let isClicked = false;
-                        jQuery(document).click(function (e) {
+                        jQuery(document).on('click touchstart tap', function(e) {
                             isClicked = true;
                         });
                         do {
@@ -442,7 +442,7 @@ const runTasks = async (taskList) => {
 
             if (task.tName == 'wait for click') {
                 let isClicked = false;
-                jQuery(document).click(function (e) {
+                jQuery(document).on('click touchstart tap', function(e) {
                     isClicked = true;
                 });
                 do {
